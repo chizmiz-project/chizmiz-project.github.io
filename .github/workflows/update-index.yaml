@@ -1,9 +1,11 @@
 name: Update Index
 
+permissions: write-all
+
 on:
   push:
-    paths:
-      - "docs/**"
+    branch:
+      "main"
 
 jobs:
   update-index:
