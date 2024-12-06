@@ -4,8 +4,8 @@ permissions: write-all
 
 on:
   push:
-    branch:
-      "main"
+    branches:
+      - main
 
 jobs:
   update-index:
