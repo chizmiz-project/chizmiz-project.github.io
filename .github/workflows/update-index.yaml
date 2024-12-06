@@ -1,7 +1,5 @@
 name: Update Index
 
-permissions: write-all
-
 on:
   push:
     paths:
