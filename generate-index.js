@@ -44,7 +44,7 @@ function generateHTML(tree) {
   </ul>
 </li>`;
         } else {
-          return `<li><a target="_blank" href="${item.path}">${item.name}</a></li>`;
+          return `<li><a href="?file=${item.path}">${item.name}</a></li>`;
         }
       })
       .join("");
@@ -56,6 +56,7 @@ function generateHTML(tree) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <title>Documentation</title>
 </head>
 <body>
@@ -64,8 +65,25 @@ function generateHTML(tree) {
     <ul>
       ${generateList(tree)}
     </ul>
+    <div id="markdown-container">
+      <p>Select a file to view its content here.</p>
+    </div>
   </div>
   <script>
+    async function renderMarkdown(file) {
+      const response = await fetch(file);
+      const markdown = await response.text();
+      const container = document.getElementById("markdown-container");
+      container.innerHTML = marked.parse(markdown);
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get("file");
+
+    if (file) {
+      renderMarkdown(file);
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".dropdown-toggle").forEach((toggle) => {
         toggle.addEventListener("click", () => {
@@ -86,4 +104,3 @@ const docsTree = scanDir(docsDir);
 const htmlContent = generateHTML(docsTree);
 
 fs.writeFileSync(outputFile, htmlContent, "utf-8");
-console.log("index.html generated successfully!");

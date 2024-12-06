@@ -4,6 +4,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
+  line-height: 1.6;
 }
 
 .container {
@@ -13,39 +14,59 @@ body {
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   text-align: center;
   margin-bottom: 20px;
+  color: #222;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 ul li {
-  margin: 5px 0;
+  margin: 10px 0;
 }
 
 ul li a {
   text-decoration: none;
   color: #0073e6;
+  font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 ul li a:hover {
+  color: #005bb5;
   text-decoration: underline;
 }
 
 .dropdown {
   cursor: pointer;
+  margin: 10px 0;
 }
 
 .dropdown-toggle {
   font-weight: bold;
   display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+  background-color: #e6e6e6;
+  color: #0073e6;
 }
 
 .dropdown-menu {
@@ -53,6 +74,7 @@ ul li a:hover {
   margin-left: 20px;
   padding-left: 10px;
   border-left: 2px solid #ccc;
+  animation: slideDown 0.3s ease forwards;
 }
 
 .dropdown.open > .dropdown-menu {
@@ -67,4 +89,61 @@ ul li a:hover {
 
 .dropdown.open > .dropdown-toggle > .dropdown-icon {
   transform: rotate(90deg);
+}
+
+#markdown-container {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+#markdown-container h1,
+#markdown-container h2,
+#markdown-container h3 {
+  margin-top: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+#markdown-container p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+#markdown-container a {
+  color: #0073e6;
+  text-decoration: none;
+}
+
+#markdown-container a:hover {
+  text-decoration: underline;
+}
+
+#markdown-container pre {
+  background: #333;
+  color: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+#markdown-container code {
+  background: #f4f4f4;
+  color: #333;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
