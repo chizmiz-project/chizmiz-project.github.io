@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Documentation</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Documentation</h1>
+    <ul>
+      <li><a target="_blank" href="/docs/about-the-project.md">about-the-project.md</a></li>
+<li class="dropdown">
+  <span class="dropdown-toggle">
+    <span class="dropdown-icon">▼</span> architecture
+  </span>
+  <ul class="dropdown-menu">
+    <li><a target="_blank" href="/docs/architecture/architecture.md">architecture.md</a></li>
+<li class="dropdown">
+  <span class="dropdown-toggle">
+    <span class="dropdown-icon">▼</span> nested-arch
+  </span>
+  <ul class="dropdown-menu">
+    <li><a target="_blank" href="/docs/architecture/nested-arch/test.md">test.md</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <span class="dropdown-toggle">
+    <span class="dropdown-icon">▼</span> bootup
+  </span>
+  <ul class="dropdown-menu">
+    <li><a target="_blank" href="/docs/bootup/bootup.md">bootup.md</a></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <span class="dropdown-toggle">
+    <span class="dropdown-icon">▼</span> vision
+  </span>
+  <ul class="dropdown-menu">
+    <li><a target="_blank" href="/docs/vision/vision-statement.md">vision-statement.md</a></li>
+  </ul>
+</li>
+    </ul>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".dropdown-toggle").forEach((toggle) => {
+        toggle.addEventListener("click", () => {
+          const parent = toggle.parentElement;
+          parent.classList.toggle("open");
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+  
