@@ -5,25 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <title>Documentation</title>
 </head>
 <body>
   <div class="container">
     <h1>Documentation</h1>
     <ul>
-      <li><a target="_blank" href="/docs/about-the-project.md">about-the-project.md</a></li>
+      <li><a href="?file=/docs/about-the-project.md">about-the-project.md</a></li>
 <li class="dropdown">
   <span class="dropdown-toggle">
     <span class="dropdown-icon">▼</span> architecture
   </span>
   <ul class="dropdown-menu">
-    <li><a target="_blank" href="/docs/architecture/architecture.md">architecture.md</a></li>
+    <li><a href="?file=/docs/architecture/architecture.md">architecture.md</a></li>
 <li class="dropdown">
   <span class="dropdown-toggle">
     <span class="dropdown-icon">▼</span> nested-arch
   </span>
   <ul class="dropdown-menu">
-    <li><a target="_blank" href="/docs/architecture/nested-arch/test.md">test.md</a></li>
+    <li><a href="?file=/docs/architecture/nested-arch/test.md">test.md</a></li>
   </ul>
 </li>
   </ul>
@@ -33,7 +34,7 @@
     <span class="dropdown-icon">▼</span> bootup
   </span>
   <ul class="dropdown-menu">
-    <li><a target="_blank" href="/docs/bootup/bootup.md">bootup.md</a></li>
+    <li><a href="?file=/docs/bootup/bootup.md">bootup.md</a></li>
   </ul>
 </li>
 <li class="dropdown">
@@ -41,12 +42,29 @@
     <span class="dropdown-icon">▼</span> vision
   </span>
   <ul class="dropdown-menu">
-    <li><a target="_blank" href="/docs/vision/vision-statement.md">vision-statement.md</a></li>
+    <li><a href="?file=/docs/vision/vision-statement.md">vision-statement.md</a></li>
   </ul>
 </li>
     </ul>
+    <div id="markdown-container">
+      <p>Select a file to view its content here.</p>
+    </div>
   </div>
   <script>
+    async function renderMarkdown(file) {
+      const response = await fetch(file);
+      const markdown = await response.text();
+      const container = document.getElementById("markdown-container");
+      container.innerHTML = marked.parse(markdown);
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get("file");
+
+    if (file) {
+      renderMarkdown(file);
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".dropdown-toggle").forEach((toggle) => {
         toggle.addEventListener("click", () => {
