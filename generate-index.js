@@ -16,10 +16,10 @@ function scanDir(dir, basePath = "/docs") {
         type: "directory",
         children: scanDir(fullPath, relativePath),
       };
-    } else if (entry.isFile() && entry.name.endsWith(".md")) {
+    } else if (entry.isFile() && (entry.name.endsWith(".md") || entry.name.endsWith(".pdf"))) {
       return {
         name: entry.name,
-        type: "file",
+        type: entry.name.endsWith(".md") ? "markdown" : "pdf",
         path: relativePath,
       };
     }
@@ -43,9 +43,12 @@ function generateHTML(tree) {
     ${generateList(item.children)}
   </ul>
 </li>`;
-        } else {
+        } else if (item.type === "markdown") {
           return `<li><a href="?file=${item.path}">${item.name}</a></li>`;
+        } else if (item.type === "pdf") {
+          return `<li><a href="?pdf=${item.path}">${item.name}</a></li>`;
         }
+        return "";
       })
       .join("");
 
@@ -77,11 +80,21 @@ function generateHTML(tree) {
       container.innerHTML = marked.parse(markdown);
     }
 
+    function renderPDF(file) {
+      const container = document.getElementById("markdown-container");
+      container.innerHTML = \`
+        <iframe src="\${file}" style="width: 100%; height: 600px;" frameborder="0"></iframe>
+      \`;
+    }
+
     const params = new URLSearchParams(window.location.search);
     const file = params.get("file");
+    const pdf = params.get("pdf");
 
     if (file) {
       renderMarkdown(file);
+    } else if (pdf) {
+      renderPDF(pdf);
     }
 
     document.addEventListener("DOMContentLoaded", () => {

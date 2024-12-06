@@ -4,8 +4,8 @@
 1.	Create a Folder:
     - Navigate to the /docs directory.
     - Create a new folder (e.g., new-docs) for your documentation.
-2.	Add Markdown Files:
-	- Inside the new folder, add your .md files (e.g., topic1.md, topic2.md).
+2.	Add Markdown or PDF Files:
+	- Inside the new folder, add your .md or .pdf files (e.g., topic1.md, topic2.pdf).
 3.	Push Changes:
 	- Commit and push your changes to the repository:
 ```bash
