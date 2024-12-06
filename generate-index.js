@@ -4,7 +4,7 @@ const path = require("path");
 const docsDir = path.join(__dirname, "docs");
 const outputFile = path.join(__dirname, "index.html");
 
-function scanDir(dir, basePath = "") {
+function scanDir(dir, basePath = "/docs") {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   const result = entries.map((entry) => {
     const fullPath = path.join(dir, entry.name);
@@ -34,11 +34,17 @@ function generateHTML(tree) {
     items
       .map((item) => {
         if (item.type === "directory") {
-          return `<li><strong>${item.name}</strong><ul>${generateList(
-            item.children
-          )}</ul></li>`;
+          return `
+<li class="dropdown">
+  <span class="dropdown-toggle">
+    <span class="dropdown-icon">▼</span> ${item.name}
+  </span>
+  <ul class="dropdown-menu">
+    ${generateList(item.children)}
+  </ul>
+</li>`;
         } else {
-          return `<li><a href="${item.path}">${item.name}</a></li>`;
+          return `<li><a target="_blank" href="${item.path}">${item.name}</a></li>`;
         }
       })
       .join("");
@@ -59,6 +65,16 @@ function generateHTML(tree) {
       ${generateList(tree)}
     </ul>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".dropdown-toggle").forEach((toggle) => {
+        toggle.addEventListener("click", () => {
+          const parent = toggle.parentElement;
+          parent.classList.toggle("open");
+        });
+      });
+    });
+  </script>
 </body>
 </html>
   `;
